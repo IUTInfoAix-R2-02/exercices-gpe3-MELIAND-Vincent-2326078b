@@ -22,7 +22,7 @@ public class JeuMain extends Application {
         Personnage pacman = new Pacman();
         Personnage fantome = new Fantome();
 
-        Obstacle obstacles = new Obstacle();
+        Obstacle obstacles = new Obstacle(40,40,20,20);
 
         obstacles.setX(40);
         obstacles.setY(40);
@@ -45,7 +45,7 @@ public class JeuMain extends Application {
         scene = new Scene(root);
 
         //Gestion du déplacement du personnage
-        deplacer(pacman, fantome);
+        deplacer(pacman, fantome, obstacles);
 
         primaryStage.setTitle("... Pac Man ...");
 
@@ -60,32 +60,56 @@ public class JeuMain extends Application {
      * @param j1
      * @param j2
      */
-    private void deplacer(Personnage j1, Personnage j2) {
+    private void deplacer(Personnage j1, Personnage j2, Obstacle obstacles) {
         scene.setOnKeyPressed((KeyEvent event) -> {
             switch (event.getCode()) {
                 case LEFT:
                     j1.deplacerAGauche();
+                    if (j1.estEnCollisionObstacle(obstacles)) {
+                        j1.deplacerADroite(scene.getWidth());
+                    }
                     break;
                 case RIGHT:
                     j1.deplacerADroite(scene.getWidth());
+                    if (j1.estEnCollisionObstacle(obstacles)) {
+                        j1.deplacerAGauche();
+                    }
                     break;
                 case DOWN:
                     j1.deplacerEnBas(scene.getHeight());
+                    if (j1.estEnCollisionObstacle(obstacles)) {
+                        j1.deplacerEnHaut();
+                    }
                     break;
                 case UP:
                     j1.deplacerEnHaut();
+                    if (j1.estEnCollisionObstacle(obstacles)) {
+                        j1.deplacerEnBas(scene.getHeight());
+                    }
                     break;
                 case Q:
                     j2.deplacerAGauche();
+                    if (j2.estEnCollisionObstacle(obstacles)) {
+                        j2.deplacerADroite(scene.getWidth());
+                    }
                     break;
                 case D:
                     j2.deplacerADroite(scene.getWidth());
+                    if (j2.estEnCollisionObstacle(obstacles)) {
+                        j2.deplacerAGauche();
+                    }
                     break;
                 case S:
                     j2.deplacerEnBas(scene.getHeight());
+                    if (j2.estEnCollisionObstacle(obstacles)) {
+                        j2.deplacerEnHaut();
+                    }
                     break;
                 case Z:
                     j2.deplacerEnHaut();
+                    if (j2.estEnCollisionObstacle(obstacles)) {
+                        j2.deplacerEnBas(scene.getHeight());
+                    }
                     break;
 
             }
@@ -93,6 +117,7 @@ public class JeuMain extends Application {
                 System.out.println("Collision....");
                 Platform.exit();
             }
+
         });
     }
 

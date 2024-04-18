@@ -82,9 +82,15 @@ class Personnage extends Group {
         }
     }
 
-    boolean estEnCollision(Personnage autrePersonnage) {
+    boolean estEnCollision(Personnage autrePersonnage) {;
         return getBoundsInParent().contains(autrePersonnage.getBoundsInParent())
                 || autrePersonnage.getBoundsInParent().contains(getBoundsInParent());
     }
+
+    boolean estEnCollisionObstacle(Obstacle obs) {
+        return getBoundsInParent().contains(obs.getBoundsInParent())
+                || obs.getBoundsInParent().contains(getBoundsInParent());
+    }
+
 
 }
