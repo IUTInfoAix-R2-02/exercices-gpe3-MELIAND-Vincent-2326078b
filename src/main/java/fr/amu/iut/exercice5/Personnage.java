@@ -17,6 +17,11 @@ class Personnage extends Group {
         getChildren().add(corps);
     }
 
+    public void setPosition(double largeurJeu, double hauteurJeu) {
+        setLayoutX(largeurJeu - LARGEUR_PERSONNAGE);
+        setLayoutY(hauteurJeu - LARGEUR_PERSONNAGE);
+    }
+
     public void deplacerAGauche() {
         //    ****
         //   *    *
@@ -40,7 +45,7 @@ class Personnage extends Group {
         //   *    *
         //    ****
         //déplacement ---->
-        if (getLayoutX() < largeurJeu - LARGEUR_PERSONNAGE) {
+        if (getLayoutX() < largeurJeu - 2*LARGEUR_PERSONNAGE) {
             setLayoutX(getLayoutX() + LARGEUR_PERSONNAGE);
         }
         if (!direction.equals("droite")) {
@@ -54,11 +59,11 @@ class Personnage extends Group {
         //  *   |   *
         //   *  |  *
         //    *****
-        if (getLayoutY() < largeurJeu - LARGEUR_PERSONNAGE) {
+        if (getLayoutY() < hauteurJeu - 2*LARGEUR_PERSONNAGE) {
             setLayoutY(getLayoutY() + LARGEUR_PERSONNAGE);
         }
-        if (!direction.equals("droite")) {
-            direction = "droite";
+        if (!direction.equals("bas")) {
+            direction = "bas";
         }
     }
 
@@ -69,7 +74,12 @@ class Personnage extends Group {
         //  *   |   *
         //   *     *
         //    *****
-
+        if (getLayoutY() >= LARGEUR_PERSONNAGE) {
+            setLayoutY(getLayoutY() - LARGEUR_PERSONNAGE);
+        }
+        if (!direction.equals("haut")) {
+            direction = "haut";
+        }
     }
 
     boolean estEnCollision(Personnage autrePersonnage) {
