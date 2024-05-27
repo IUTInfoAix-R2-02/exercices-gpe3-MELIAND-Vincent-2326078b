@@ -18,8 +18,8 @@
             </Label>
 
             <HBox alignment="CENTER" spacing="10">
-                <Button fx:id="decrementButton" style="-fx-background-color: #31BCA5;" text="Click to decrement" />
-                <Button fx:id="incrementButton" style="-fx-background-color: #FF7619;" text="Click to increment" />
+                <Button onAction="#decrement" fx:id="decrementButton" style="-fx-background-color: #31BCA5;" text="Click to decrement" />
+                <Button onAction="#increment" fx:id="incrementButton" style="-fx-background-color: #FF7619;" text="Click to increment" />
             </HBox>
         </VBox>
     </center>
